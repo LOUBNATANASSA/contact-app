@@ -5,6 +5,10 @@
 package Form;
 
 import entities.Contact;
+import java.awt.Desktop;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -76,6 +80,7 @@ public void load(){
         RECHERCHEBTN = new javax.swing.JButton();
         SUPPRIMRBTN = new javax.swing.JButton();
         MODIFIERBTN = new javax.swing.JButton();
+        TELECHARGERBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,6 +172,7 @@ public void load(){
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel7.setText("PAR");
 
+        RECHERCHEBTN.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         RECHERCHEBTN.setText("RECHERCHE");
         RECHERCHEBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,6 +193,14 @@ public void load(){
         MODIFIERBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MODIFIERBTNActionPerformed(evt);
+            }
+        });
+
+        TELECHARGERBTN.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        TELECHARGERBTN.setText("TELECHARGER LES DONNEES");
+        TELECHARGERBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TELECHARGERBTNActionPerformed(evt);
             }
         });
 
@@ -213,23 +227,27 @@ public void load(){
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(NOMBOX, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(MODIFIERBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(AJOUTERBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RECHERCHEBTN)
-                        .addComponent(recherchebox)
-                        .addComponent(SUPPRIMRBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(30, 30, 30))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(TELECHARGERBTN)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(MODIFIERBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(AJOUTERBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RECHERCHEBTN)
+                            .addComponent(recherchebox)
+                            .addComponent(SUPPRIMRBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(30, 30, 30))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +273,9 @@ public void load(){
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ADRESSBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(TELECHARGERBTN)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -471,6 +491,37 @@ public void load(){
               }
     }//GEN-LAST:event_MODIFIERBTNActionPerformed
 
+    private void TELECHARGERBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TELECHARGERBTNActionPerformed
+       File file = new File("CONTACTES.txt");
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+        // Écrire les  colonnes
+        writer.write("ID\t;Nom\t;TELEPHONE\t;ADRESS\t;");
+        writer.newLine();
+
+        // Parcourir toutes les lignes du modèle de la table
+        for (int i = 0; i < LISTCONTACT.getRowCount(); i++) {
+            StringBuilder row = new StringBuilder();
+            for (int j = 0; j < LISTCONTACT.getColumnCount(); j++) {
+                row.append(LISTCONTACT.getValueAt(i, j).toString()).append("\t;");
+            }
+            // Ajouter la ligne au fichier
+            writer.write(row.toString().trim());
+            writer.newLine();
+        }
+
+        
+        JOptionPane.showMessageDialog(this, "Les données ont été téléchargées avec succès dans le fichier 'CONTACTES.txt' !");
+         if (Desktop.isDesktopSupported()) {
+            Desktop.getDesktop().open(file);
+        } else {
+            JOptionPane.showMessageDialog(this, "L'ouverture automatique n'est pas supportée sur ce système.");
+        }
+    } catch (Exception e) {
+        
+        JOptionPane.showMessageDialog(this, "Erreur lors du téléchargement des données : ");
+    }
+    }//GEN-LAST:event_TELECHARGERBTNActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -516,6 +567,7 @@ public void load(){
     private javax.swing.JButton RECHERCHEBTN;
     private javax.swing.JButton SUPPRIMRBTN;
     private javax.swing.JTextField TELEBOX;
+    private javax.swing.JButton TELECHARGERBTN;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
