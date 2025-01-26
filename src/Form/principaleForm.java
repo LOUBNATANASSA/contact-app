@@ -74,6 +74,8 @@ public void load(){
         LISTRECHERCHE = new javax.swing.JList<>();
         jLabel7 = new javax.swing.JLabel();
         RECHERCHEBTN = new javax.swing.JButton();
+        SUPPRIMRBTN = new javax.swing.JButton();
+        MODIFIERBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +138,11 @@ public void load(){
                 "id", "NOM", "TELEPHONE", "ADRESS"
             }
         ));
+        LISTCONTACT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LISTCONTACTMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(LISTCONTACT);
 
         recherchebox.addActionListener(new java.awt.event.ActionListener() {
@@ -167,6 +174,22 @@ public void load(){
             }
         });
 
+        SUPPRIMRBTN.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        SUPPRIMRBTN.setText("SUPPRIMER");
+        SUPPRIMRBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SUPPRIMRBTNActionPerformed(evt);
+            }
+        });
+
+        MODIFIERBTN.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        MODIFIERBTN.setText("MODIFIER");
+        MODIFIERBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MODIFIERBTNActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -190,15 +213,18 @@ public void load(){
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(NOMBOX, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AJOUTERBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                    .addComponent(RECHERCHEBTN)
-                    .addComponent(recherchebox))
+                    .addComponent(MODIFIERBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(AJOUTERBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(RECHERCHEBTN)
+                        .addComponent(recherchebox)
+                        .addComponent(SUPPRIMRBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,23 +235,27 @@ public void load(){
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
-                .addComponent(jLabel1)
-                .addGap(71, 71, 71)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(NOMBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AJOUTERBTN))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(TELEBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(ADRESSBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(71, 71, 71)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(NOMBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AJOUTERBTN))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(TELEBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SUPPRIMRBTN))
+                        .addGap(18, 18, 18)
+                        .addComponent(MODIFIERBTN))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ADRESSBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -394,6 +424,53 @@ public void load(){
     }
     }//GEN-LAST:event_RECHERCHEBTNActionPerformed
 
+    private void LISTCONTACTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LISTCONTACTMouseClicked
+         id=Integer.parseInt(model.getValueAt(LISTCONTACT.getSelectedRow(), 0).toString());
+     NOMBOX.setText(model.getValueAt(LISTCONTACT.getSelectedRow(), 1).toString());
+     TELEBOX.setText(model.getValueAt(LISTCONTACT.getSelectedRow(), 2).toString());
+     ADRESSBOX.setText(model.getValueAt(LISTCONTACT.getSelectedRow(), 3).toString());
+    }//GEN-LAST:event_LISTCONTACTMouseClicked
+
+    private void SUPPRIMRBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SUPPRIMRBTNActionPerformed
+         if( NOMBOX.getText().isEmpty() || ADRESSBOX.getText().isEmpty()|| TELEBOX.getText().isEmpty()){JOptionPane.showMessageDialog(this, "veillez choisir un client depuit la liste", "Erreur", JOptionPane.ERROR_MESSAGE);}
+      else{
+        
+        int reponse=JOptionPane.showConfirmDialog(this, "voulez vous vraiment supprimer CE CONTACT?");
+        if(reponse==0){
+            if(Cs.delete(Cs.findById(id))){
+                JOptionPane.showMessageDialog(this,"le contact a été bien supprimée !");
+                load();
+            }
+            else{JOptionPane.showMessageDialog(this,"Erreur de suppression du contact");}
+        }
+        }
+    }//GEN-LAST:event_SUPPRIMRBTNActionPerformed
+
+    private void MODIFIERBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MODIFIERBTNActionPerformed
+        if(NOMBOX.getText().isEmpty() || ADRESSBOX.getText().isEmpty() || TELEBOX.getText().isEmpty() ){JOptionPane.showMessageDialog(this, "veillez choisir une categorie depuit la liste");}
+              else{
+        String nom=NOMBOX.getText();
+        String adress=ADRESSBOX.getText();
+        String tele=TELEBOX.getText();
+        
+        Contact c=Cs.findById(id);
+        c.setNom(nom);
+        c.setTelephone(Long.parseLong(tele));
+        c.setAdress(adress);
+       
+        int reponse=JOptionPane.showConfirmDialog(this, "Voulez vous vraiment modifier ce contact");
+        if(reponse==0){
+            if(Cs.update(c)){
+                JOptionPane.showMessageDialog(this, "Contact bien modifié");
+                load();
+            }
+            else{JOptionPane.showMessageDialog(this, "erreur de modification du contact");}
+        }
+      
+        
+              }
+    }//GEN-LAST:event_MODIFIERBTNActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -434,8 +511,10 @@ public void load(){
     private javax.swing.JButton AJOUTERBTN;
     private javax.swing.JTable LISTCONTACT;
     private javax.swing.JList<String> LISTRECHERCHE;
+    private javax.swing.JButton MODIFIERBTN;
     private javax.swing.JTextField NOMBOX;
     private javax.swing.JButton RECHERCHEBTN;
+    private javax.swing.JButton SUPPRIMRBTN;
     private javax.swing.JTextField TELEBOX;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

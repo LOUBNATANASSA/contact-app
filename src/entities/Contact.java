@@ -5,17 +5,17 @@ public class Contact {
     private String nom;
     private long telephone;
     private String adress;
-    public static int count=0;
+    
 	public Contact(int id, String nom, long telephone, String adress) {
 		super();
-		this.id = count++;
+		this.id = id++;
 		this.nom = nom;
 		this.telephone = telephone;
 		this.adress = adress;
 	}
 	public Contact(String nom, long telephone, String adress) {
 		super();
-		this.id = count++;
+		this.id = id++;
 		this.nom = nom;
 		this.telephone = telephone;
 		this.adress = adress;
