@@ -111,5 +111,78 @@ public class contactservice implements IDAO<Contact>  {
 		}
 		return null;
 	}
+        public boolean createsup(Contact o) {
+            String req="insert into contactsupprime values(?,?,?,?)";
+		try {
+			
+		PreparedStatement ps=connexion.getCnx().prepareStatement(req);
+                ps.setInt(1,o.getId());
+		ps.setString(2,o.getNom());
+		ps.setLong(3,o.getTelephone());
+		ps.setString(4,o.getAdress());
+		
+		if(ps.executeUpdate()==1) {
+			System.out.println("contactesupprime cree!");
+		return true;
+		}
+		}catch(SQLException e) {
+			System.out.println("ERREUR DE CREATE SQL contactsupprime"+ e);
+		}
+            return false;}
+        
+        public List<Contact> findAllSUPP() {
+		List<Contact> ls=new ArrayList<>();
+		String req="SELECT * FROM contactsupprime ";
+		try {
+			PreparedStatement ps=connexion.getCnx().prepareStatement(req);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				ls.add(new Contact(rs.getInt(1),rs.getString(2),rs.getLong(3),rs.getString(4)));
+			}
+			System.out.println("FINDALL  contactsupprime est bien affecte!");
+			return ls;
+		} catch (SQLException e) {
+			
+			System.out.println(" ERREUR SQL "+ e.getMessage());
+		}
+		return null;
+	}
+        public boolean deleteSUPP(Contact o) {
+		String req="DELETE FROM contactsupprime where id=?";
+		try {
+			
+			PreparedStatement ps=connexion.getCnx().prepareStatement(req);
+			ps.setLong(1,o.getId());
+			if(ps.executeUpdate()==1) {
+				System.out.println("deletion contactsupp AFFECTED!");
+			return true;}
+			else {System.out.println("AUCUN SUPRESSION contact");
+			
+			}
+		} catch (SQLException e) {
+			
+			System.out.println("ERREUR SQL "+ e.getMessage());
+		}
+		return false;
+	}
+        
+        public Contact findByIdsupp(int id) {
+		String req="SELECT * FROM contactsupprime WHERE id=?";
+		try {
+			
+			PreparedStatement ps=connexion.getCnx().prepareStatement(req);
+			ps.setInt(1, id);
+			ResultSet rs=ps.executeQuery();
+			if(rs.next()) {
+				System.out.println("findbyid affected");
+				return new Contact(rs.getInt(1),rs.getString(2),rs.getLong(3),rs.getString(4));
+				
+			}else { System.out.println("Aucun carnet trouvé pour l'ID : " + id);}
+		} catch (SQLException e) {
+			
+			System.out.println("ERREUR SQL "+ e.getMessage());
+		}
+		return null;
+	}
 
 }

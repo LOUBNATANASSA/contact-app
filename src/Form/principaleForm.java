@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import services.contactservice;
+import services.supprimeeservice;
 
 /**
  *
@@ -24,6 +25,7 @@ public class principaleForm extends javax.swing.JFrame {
 
  
      private contactservice Cs;
+     private supprimeeservice s;
      private DefaultTableModel model;
      private static int id;
 
@@ -33,6 +35,7 @@ public class principaleForm extends javax.swing.JFrame {
     public principaleForm() {
         initComponents();
         Cs=new contactservice();
+        s=new supprimeeservice();
         //this.setBounds(100, 100, 800, 600);
          setResizable(false);
          model=(DefaultTableModel) LISTCONTACT.getModel();
@@ -81,6 +84,7 @@ public void load(){
         SUPPRIMRBTN = new javax.swing.JButton();
         MODIFIERBTN = new javax.swing.JButton();
         TELECHARGERBTN = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,6 +208,14 @@ public void load(){
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jButton1.setText("CONTACTS SUPPRIMEE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -232,9 +244,6 @@ public void load(){
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(TELECHARGERBTN)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -247,7 +256,12 @@ public void load(){
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(30, 30, 30))))
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TELECHARGERBTN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,9 +287,11 @@ public void load(){
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ADRESSBOX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(TELECHARGERBTN)
-                .addGap(28, 28, 28)
+                .addGap(19, 19, 19)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -363,7 +379,7 @@ public void load(){
     Contact nouveauContact = new Contact(NOMBOX.getText(), telephone, ADRESSBOX.getText());
     if (Cs.create(nouveauContact)) {
         JOptionPane.showMessageDialog(null, "Contact ajouté !");
-        // load(); // Si vous avez une méthode pour recharger l'interface, décommentez cette ligne.
+        load(); // Si vous avez une méthode pour recharger l'interface, décommentez cette ligne.
     } else {
         JOptionPane.showMessageDialog(this, "Une erreur s'est produite lors de l'ajout du contact.", "Erreur", JOptionPane.ERROR_MESSAGE);
     }
@@ -457,9 +473,13 @@ public void load(){
         
         int reponse=JOptionPane.showConfirmDialog(this, "voulez vous vraiment supprimer CE CONTACT?");
         if(reponse==0){
+            Cs.createsup(Cs.findById(id));
             if(Cs.delete(Cs.findById(id))){
+                
                 JOptionPane.showMessageDialog(this,"le contact a été bien supprimée !");
                 load();
+                
+                
             }
             else{JOptionPane.showMessageDialog(this,"Erreur de suppression du contact");}
         }
@@ -522,6 +542,16 @@ public void load(){
     }
     }//GEN-LAST:event_TELECHARGERBTNActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+               SUPPFORM newFrame = new SUPPFORM();
+    
+    // Rendre le nouveau JFrame visible
+    newFrame.setVisible(true);
+    
+    // Fermer ou cacher le JFrame actuel
+    this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -568,6 +598,7 @@ public void load(){
     private javax.swing.JButton SUPPRIMRBTN;
     private javax.swing.JTextField TELEBOX;
     private javax.swing.JButton TELECHARGERBTN;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
